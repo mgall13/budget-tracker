@@ -19,5 +19,14 @@ request.onsuccess = function(event) {
 
 // on unsuccessful upgrade
 request.onerror = function(event) {
-    console.log(event.target.errorCode);
+    console.log("Error: " + event.target.errorCode);
 };
+
+// Function that will execute on budget without internet connection
+function saveRecord(record) {
+    const transaction = db.transaction(["new_budget"], "readwrite");
+
+    const store = transaction.objectStore("new_budget");
+
+    store.add(record);
+}
